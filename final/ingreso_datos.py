@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from genera_tablas import Establecimiento, Parroquia, Canton, Provincia
+from genera_tablas import Provincia
 
 from configuracion import cadena_base_datos
 
@@ -17,23 +17,13 @@ lista = archivo.readlines()
 lista = [l.replace(",", "").split("|") for l in lista]
 
 for l in lista:        
-        club = Club(nombre= l[0] , deporte= l[1] , fundacion= int(l[2][0:4]))
+        provincias = Provincia(codigo= l[2] , nombre= l[3] )
         
-        session.add(club)
+
+print(provincias)
 
 
-archivo2 = open('data/datos_jugadores.txt', 'r')
 
-lista2 = archivo2.readlines()
-
-lista2 = [l2.replace("\n", "").split(";") for l2 in lista2]
-
-for l2 in lista2:        
-        club = session.query(Club).filter_by(nombre=l2[0]).one()
-        jugadores = Jugador(nombre= l2[3], dorsal= int(l2[2]), posicion= l2[1], club= club)
-        
-        session.add(jugadores)
 
 archivo.close()
-archivo2.close()
-session.commit()
+#session.commit()

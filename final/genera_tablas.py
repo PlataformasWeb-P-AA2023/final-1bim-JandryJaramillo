@@ -33,7 +33,6 @@ class Parroquia(Base):
     codigo = Column(String(10), primary_key=True)
     nombre = Column(String(250))
 
-    establecimiento_id = Column(Integer, ForeignKey('establecimiento.id'))
     canton_codigo = Column(String(10), ForeignKey('canton.codigo'))
 
     establecimientos = relationship("Establecimiento", back_populates="parroquia")
@@ -47,8 +46,7 @@ class Canton(Base):
     nombre = Column(String(250))
 
     provincia_codigo = Column(String(10), ForeignKey('provincia.codigo'))
-    canton_codigo = Column(String(10), ForeignKey('canton.codigo'))
-
+    
     provincia = relationship("Provincia", back_populates="cantones")
     parroquias = relationship("Parroquia", back_populates="canton")
     
@@ -62,12 +60,8 @@ class Provincia(Base):
     codigo = Column(String(10), primary_key=True)
     nombre = Column(String(100))
 
-    canton_codigo = Column(String(10), ForeignKey('canton.codigo'))
-
     cantones = relationship("Canton", back_populates="provincia")
-    
-
-    
+        
     def __repr__(self):
         return "Club: nombre=%s deporte=%s fundación=%d" % (
                           self.nombre, 
