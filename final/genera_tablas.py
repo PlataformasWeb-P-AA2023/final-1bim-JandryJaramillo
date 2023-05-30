@@ -10,7 +10,7 @@ engine = create_engine(cadena_base_datos)
 Base = declarative_base()
 
 class Establecimiento(Base):
-    _tablename_ = 'establecimiento'
+    __tablename__ = 'establecimiento'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     parroquia_codigo = Column(String(10), ForeignKey('parroquia.codigo'))
@@ -28,7 +28,7 @@ class Establecimiento(Base):
     parroquia = relationship("Parroquia", back_populates="establecimientos")
 
 class Parroquia(Base):
-    _tablename_ = 'parroquia'
+    __tablename__ = 'parroquia'
 
     codigo = Column(String(10), primary_key=True)
     nombre = Column(String(250))
@@ -51,8 +51,8 @@ class Canton(Base):
     parroquias = relationship("Parroquia", back_populates="canton")
     
     def __repr__(self):
-        return "Jugador: %s - dorsal:%d - posición: %s" % (
-                self.nombre, self.dorsal, self.posicion)
+        return "Canton: codigo: %s - nombre: %s" % (
+                self.codigo, self.nombre)
 
 class Provincia(Base):
     __tablename__ = 'provincia'
@@ -63,10 +63,9 @@ class Provincia(Base):
     cantones = relationship("Canton", back_populates="provincia")
         
     def __repr__(self):
-        return "Club: nombre=%s deporte=%s fundación=%d" % (
-                          self.nombre, 
-                          self.deporte, 
-                          self.fundacion)
+        return "Provincia: codigo=%s nombre=%s " % (
+                          self.codigo, 
+                          self.nombre)
     
 
 Base.metadata.create_all(engine)
