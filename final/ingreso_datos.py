@@ -21,7 +21,16 @@ lista2 = (lista[2] , lista[3] )
 print(lista2)
 
 
+for row in csv_reader:
+        # Extraer el dato específico de la fila (ajusta esto según tus necesidades)
+        dato = row[0]  # Ejemplo: primera columna
 
+        # Agregar el dato al conjunto
+        datos.add(dato)
+
+# Imprimir el conjunto de datos obtenidos
+for dato in datos:
+    print(dato)
 
 archivo.close()
 #session.commit()
