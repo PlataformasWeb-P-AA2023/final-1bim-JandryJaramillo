@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+statusfrom sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey
@@ -14,18 +14,25 @@ class Establecimiento(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     parroquia_codigo = Column(String(10), ForeignKey('parroquia.codigo'))
+    cod_dis = Column(String(250))
 
-    codigo_amie = Column(String(10))
-    nombre = Column('nombre', String(250))    
+    amie = Column(String(10))
+    nombre = Column(String(250))
     sostenimiento = Column(String(50))
     tipo_educacion = Column(String(50))
     modalidad = Column(String(50))
     jornada = Column(String(50))
     acceso = Column(String(50))
-    numero_estudiantes = Column(Integer)
-    numero_docentes = Column(Integer)
+    num_estudiantes = Column(Integer)
+    num_docentes = Column(Integer)
 
     parroquia = relationship("Parroquia", back_populates="establecimientos")
+
+    def __repr__(self):
+        return "Establecimiento: Código Distrito: %s - Código AMIE: %s - Nombre: %s - Sostenimiento: %s - Tipo de Educación: %s - Modalidad: %s - Jornada: %s - Acceso: %s - Número de Estudiantes: %d - Número de Docentes: %d" % (
+                self.cod_dis, self.amie, self.nombre, self.sostenimiento,
+                self.tipo_educacion, self.modalidad, self.jornada,
+                self.acceso, self.num_estudiantes, self.num_docentes)
 
 class Parroquia(Base):
     __tablename__ = 'parroquia'
@@ -37,6 +44,10 @@ class Parroquia(Base):
 
     establecimientos = relationship("Establecimiento", back_populates="parroquia")
     canton = relationship("Canton", back_populates="parroquias")
+
+    def __repr__(self):
+        return "Parroquia: codigo: %s - nombre: %s" % (
+                self.codigo, self.nombre)
     
 
 class Canton(Base):
