@@ -9,7 +9,7 @@ from genera_tablas import Provincia
 
 from configuracion import cadena_base_datos
 
-engine = create_engine(cadena_base_datos)
+engine = create_engine(cadena_base_datos, echo=True)
 
 Session = sessionmaker(bind=engine)
 session = Session()

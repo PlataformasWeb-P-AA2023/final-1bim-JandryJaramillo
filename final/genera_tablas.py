@@ -1,11 +1,11 @@
-statusfrom sqlalchemy import create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey
 
 from configuracion import cadena_base_datos
 
-engine = create_engine(cadena_base_datos)
+engine = create_engine(cadena_base_datos, echo=True)
 
 Base = declarative_base()
 
